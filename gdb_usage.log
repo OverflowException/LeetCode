@@ -1,0 +1,16 @@
+0.Compile source code with parameter -g in order to make it trackable by gdb 
+1.M-x gdb to run gdb inside current buffer
+2.'h' to ask for help
+3.'file [filename]' to load executable file
+4.Move cursor to any line of source code in a seperate buffer and type 'C-x C-a C-b' to set breakpoint
+5.'C-x C-a C-d' to disable breakpoint
+6.'r' to run the executable file, it will break at breakpoint
+7.'c' to continue running until the next breakpoint
+8.'C-x C-a C-w' to watch the value of certain varaible marked by the cursor
+9.'bt' to checkout backtrace. It illustrates call stack. The stack will be displayed as an up-growing one.
+       It shows the calling relationship of different functions.
+       It wil also show the value of parameter passed.
+   'bt <n>' to show the upper n layers of a stack. Which is the prior n function called.
+   'bt <-n>' to show the lower n layers of a stack. Which is the prior n function called.
+
+The usage of command 'n', 's' and 'fin' is still unkown

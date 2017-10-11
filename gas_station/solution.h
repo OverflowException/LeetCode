@@ -1,0 +1,124 @@
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+//A node of circular list
+struct CostNode
+{
+  int val;
+  CostNode* next;
+  CostNode(int v = 0) : val(v), next(NULL){}
+};
+
+struct SegNode
+{
+  int val;
+  SegNode* next;
+  CostNode* c_start;
+  SegNode(int v = 0) : val(v), next(NULL), c_start(NULL){}
+};
+
+class Solution
+{
+ private:
+  template<class node>
+  void displayCircularList(node* head)
+  {
+    node* start = head;
+    do
+      {
+	cout << head->val << " ";
+	head = head->next;
+      }while(head != start);
+    cout << endl;
+  }
+  
+ public:
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost)
+  {
+    //net_cost do not have 0 as element. Or else the solution cannot be unique!
+    size_t route_length = gas.size();
+    CostNode* net_cost_head = new CostNode(gas[0] - cost[0]);
+    CostNode* curr_node = net_cost_head;
+    for(size_t index = 1; index < route_length; ++index)
+      {
+	curr_node->next = new CostNode(gas[index] - cost[index]);
+	curr_node = curr_node->next;
+      }
+    curr_node->next = net_cost_head;
+
+    cout << "net_cost_head: ";
+    displayCircularList(net_cost_head);    
+    
+    curr_node = net_cost_head;
+
+    if(gas.size() == 1)
+      return net_cost_head->val >= 0 ? 0 : -1;
+      
+    curr_node = net_cost_head->next;
+    bool prev_sig = net_cost_head->val > 0 ? true : false;
+    bool curr_sig = prev_sig;
+    while(curr_node != net_cost_head)
+      {
+	curr_sig = curr_node->val > 0;
+	if(!prev_sig && curr_sig)
+	  break;
+	curr_node = curr_node->next;
+	prev_sig = curr_sig;
+      }
+
+    cout << "N-P switch: " << curr_node->val << endl;
+    
+    if(curr_node == net_cost_head && curr_node->val < 0)
+      return -1;
+
+    net_cost_head = curr_node;
+
+    ////////////////////////////////////////////////
+    SegNode* net_seg_head = new SegNode(0);
+    int val_temp;
+    while((val_temp = curr_node->val) > 0)
+      {
+	cout << "val_temp = " << val_temp << endl;
+	net_seg_head->val += val_temp;
+	curr_node = curr_node->next;
+      }
+    while((val_temp = curr_node->val) < 0)
+      {
+	cout << "val_temp = " << val_temp << endl;
+	net_seg_head->val += val_temp;
+	curr_node = curr_node->next;
+      }
+
+    cout << "Here" << endl;
+      
+    SegNode* curr_seg = net_seg_head;
+    while(curr_node != net_cost_head)
+      {
+	curr_seg = new SegNode(0);
+	while((val_temp = curr_node->val) > 0)
+	  {
+	    curr_seg->next->val += val_temp;
+	    curr_node = curr_node->next;
+	  }
+	while((val_temp = curr_node->val) < 0)
+	  {
+	    curr_seg->next->val += val_temp;
+	    curr_node = curr_node->next;
+	  }
+	curr_seg = curr_seg->next;
+      }
+    cout << "here_1" << endl;
+    curr_seg = net_seg_head;
+    cout << "here_2" << endl;
+
+    //displayCircularList(net_seg_head);
+
+    cout << net_seg_head->val << endl;
+    
+    return 1024;
+  }
+};

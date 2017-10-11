@@ -1,0 +1,16 @@
+1.use gcc when compiling .c files, and g++ when compiling .cpp files
+
+2. g++ -E main.c -o main.i 
+  -E means pre-compile, -o means the result is written into main.i file.
+
+3. g++ -S main.c -o main.s
+  -S means to generate assembly file, -o means the result is written into main.s file.
+
+4. g++ -c main.c -o main.o
+   -c means to generate object file.
+
+5. g++ main.o ... -o test.exe
+   link multiple object files, generate executable file
+
+6. g++ main.c ... -o test.exe
+   compile and link multipe files, and generate executable file directly

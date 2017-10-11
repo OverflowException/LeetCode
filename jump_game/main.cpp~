@@ -1,0 +1,9 @@
+#include "solution.h"
+
+int main(int argc, char** argv)
+{
+  vector<int> test{2, 1, 0, 0};
+  Solution s;
+  cout.setf(ios::boolalpha);
+  cout << s.canJump(test) << endl;
+}

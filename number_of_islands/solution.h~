@@ -1,0 +1,5 @@
+#ifndef _SOLUTION
+#define _SOLUTION
+#include <>
+
+#endif

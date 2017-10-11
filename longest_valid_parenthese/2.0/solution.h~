@@ -1,0 +1,69 @@
+#include <stack>
+#include <vector>
+#include <string>
+#include <array>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+class Solution
+{
+ public:
+  int longestValidParentheses(string s)
+  {       
+    typedef string::const_iterator Position;
+    stack<Position> st;
+
+    string::const_iterator s_it;
+    for(s_it = s.begin(); s_it != s.end(); s_it++)
+      {
+	//'(' found
+	if(*s_it == '(')
+	  st.push(s_it);
+	//')' found
+	else
+	  {
+	    if(!st.empty())
+	      {
+		if(*st.top() == '(')
+		  st.pop();
+		else
+		  st.push(s_it);
+	      }
+	    else
+	      st.push(s_it);
+	  }
+      }
+    //For output only    
+    while(!st.empty())
+      {
+	cout << st.top() - s.cbegin() << " ";
+	st.pop();
+      }
+    cout << endl;
+
+    int result = 0;
+    size_t diff = 0;
+    Position prev_pos;
+    cout << "Dp_3" << endl;
+    Position curr_pos;
+    cout << "Dp_4" << endl;
+    curr_pos = st.top();
+    cout << "Dp_5" << endl;
+    st.pop();
+    while(!st.empty())
+      {
+	prev_pos = curr_pos;
+	curr_pos = st.top();
+	st.pop();
+	diff = prev_pos - curr_pos;
+	result = result >= diff ? result : diff;
+      }
+    result = result >= curr_pos - s.begin() ?
+      result : curr_pos - s.begin();
+    //if result = 1, then there are no valid parentheses
+    
+    return result == 1 ? 0 : result;
+  }
+};

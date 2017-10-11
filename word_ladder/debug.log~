@@ -1,0 +1,17 @@
+main.cpp: In function ‘int main(int, char**)’:
+main.cpp:13:43: error: no matching function for call to ‘find(std::vector<std::__cxx11::basic_string<char> >::iterator, std::vector<std::__cxx11::basic_string<char> >::iterator, const char [4])’
+   find(v_test.begin(), v_test.end(), "hit");
+                                           ^
+In file included from /usr/include/c++/6/bits/locale_facets.h:48:0,
+                 from /usr/include/c++/6/bits/basic_ios.h:37,
+                 from /usr/include/c++/6/ios:44,
+                 from /usr/include/c++/6/ostream:38,
+                 from /usr/include/c++/6/iostream:39,
+                 from main.cpp:1:
+/usr/include/c++/6/bits/streambuf_iterator.h:369:5: note: candidate: template<class _CharT2> typename __gnu_cxx::__enable_if<std::__is_char<_CharT2>::__value, std::istreambuf_iterator<_CharT> >::__type std::find(std::istreambuf_iterator<_CharT>, std::istreambuf_iterator<_CharT>, const _CharT2&)
+     find(istreambuf_iterator<_CharT> __first,
+     ^~~~
+/usr/include/c++/6/bits/streambuf_iterator.h:369:5: note:   template argument deduction/substitution failed:
+main.cpp:13:43: note:   ‘__gnu_cxx::__normal_iterator<std::__cxx11::basic_string<char>*, std::vector<std::__cxx11::basic_string<char> > >’ is not derived from ‘std::istreambuf_iterator<_CharT>’
+   find(v_test.begin(), v_test.end(), "hit");
+                                           ^

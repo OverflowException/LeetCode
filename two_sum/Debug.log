@@ -1,0 +1,5 @@
+mingw32-make -f Makefile.Release
+mingw32-make[1]: Entering directory 'F:/LeetCode/two_sum'
+gcc -c -pipe -fno-keep-inline-dllexport -O2 -Wall -Wextra -DUNICODE -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -I. -ID:\Qt\5.5\5.5\mingw492_32\include -ID:\Qt\5.5\5.5\mingw492_32\include\QtGui -ID:\Qt\5.5\5.5\mingw492_32\include\QtANGLE -ID:\Qt\5.5\5.5\mingw492_32\include\QtCore -Irelease -ID:\Qt\5.5\5.5\mingw492_32\mkspecs\win32-g++  -o release\main.o main.c
+g++ -Wl,-s -Wl,-subsystem,console -mthreads -o release\two_sum.exe release/main.o  -LD:/Qt/5.5/5.5/mingw492_32/lib -lQt5Gui -lQt5Core 
+mingw32-make[1]: Leaving directory 'F:/LeetCode/two_sum'

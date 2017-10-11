@@ -1,0 +1,80 @@
+//If you are troubled by int overflow, just try long long int.
+//When a int is forced to convert to a long long int, signal will not change.
+//But after the conversion, operators will not overflow, will act in a normal way.
+
+#include <cstdio>
+#include <cstdlib>
+
+#define MIN_INT (1 << (sizeof(int) * 8 - 1))
+#define MAX_INT (MIN_INT - 1)
+class Solution
+{
+ public: 
+  int divide(int dividend, int divisor)
+  {
+    if(!(bool)divisor)
+      return MAX_INT;
+
+    bool sig_r = false;
+    bool sig_1 = false;
+    bool sig_2 = false;
+    if(sig_1 = (bool)(dividend & 0x80000000))
+      dividend = -dividend;
+    if(sig_2 = (bool)(divisor & 0x80000000))
+      divisor = -divisor;
+    //Get the signal of result
+    sig_r = sig_1 ^ sig_2;
+
+    long long int ldividend = (long long int)dividend;
+    long long int ldivisor = (long long int)divisor;
+    long long int lresult = 0;
+    long long int prev_lproduct = 0;
+    long long int next_lproduct = ldivisor;
+    //can be modified to O(log2n)
+    while(next_lproduct <= ldividend)
+      {
+	lresult += 2;
+	prev_lproduct = next_lproduct;
+	next_lproduct += prev_lproduct; //doubles each time
+      }
+
+    //This is when prev < ldivident && next > ldivident
+    /*    if(prev_lproduct < ldividend)
+      {
+	lresult -= 2;
+	while(prev_lproduct <= )
+	}*/
+
+    int result;
+    if(sig_r)
+      return -result;
+    else 
+      return result;
+  }    
+};
+
+int main(int argc, char** argv)
+{
+  printf("MAX = %d\n", MAX_INT);
+  printf("MIN = %d\n", MIN_INT);
+
+  Solution* s = new Solution;
+  //printf("MAX / 1 = %d\n", s->divide(MAX_INT, 1));
+  //printf("MAX / -1 = %d\n", s->divide(MAX_INT, -1));
+  //printf("MIN / 1 = %d\n", s->divide(MIN_INT, 1));
+  //printf("MIN / -1 = %d\n", s->divide(MIN_INT, -1));
+
+  int max = MAX_INT;
+  int min = MIN_INT;
+  long long int testLong = min;
+  testLong += 2;
+
+  printf("testLong = %lld\n", testLong);
+  printf("sizeof testLong = %d\n", sizeof(testLong));
+
+  //printf("result = %d\n", s->divide(atoi(argv[1]), atoi(argv[2])));
+  return 0;
+  //printf("%d", MIN_INT, -1);
+}
+
+

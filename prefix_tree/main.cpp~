@@ -1,0 +1,10 @@
+#include "solution.h"
+
+int main()
+{
+  Trie test;
+  test.insert("a");
+  cout.setf(ios::boolalpha);
+  cout << test.search("a") << endl;
+  cout << test.startsWith("") << endl;
+}

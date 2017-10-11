@@ -1,0 +1,32 @@
+#include <iostream>
+#include <sstream>
+#include "solution.h"
+
+using namespace std;
+
+int main(int argc, char** argv)
+{
+  //The first element of this list is empty
+  ListNode* sorted = (ListNode*)malloc(sizeof(ListNode));
+  Solution s;
+  cout << "Please input a list of numbers(sorted)" << endl;
+  string str_input;
+  int int_input;
+  ListNode* ptr = sorted->next;
+  getline(cin, str_input);
+  istringstream ss(str_input);
+  while(ss >> int_input)
+    {
+      ptr = (ListNode*)malloc(sizeof(ListNode));
+      ptr->val = int_input;
+      ptr = ptr->next;
+    }
+  
+  //Now display the input list
+  ptr = sorted->next;
+  while(ptr != NULL)
+    {
+      cout << ptr->val << " ";
+      ptr = ptr->next;
+    }
+}

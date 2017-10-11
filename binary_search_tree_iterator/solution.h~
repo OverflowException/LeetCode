@@ -1,0 +1,68 @@
+ struct TreeNode
+ {
+   int val;
+   TreeNode *left;
+   TreeNode *right;
+   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ };
+
+enum SubPostion
+  {
+    left,
+    mid,
+    right
+  };
+
+class BSTIterator
+{
+ private:
+  stack<TreeNode*> pos_stack;
+  TreeNode* curr_pos;
+  char sub_pos;
+  
+ public:
+  BSTIterator(TreeNode *root)
+    {
+      curr_pos = root;
+      while(curr_pos->left != NULL)
+	{
+	  pos_stack.push(curr_pos);
+	  curr_pos = curr_pos->left;
+	}
+
+      if(curr_pos->right == NULL)
+	sub_pos = left;
+      else
+	sub_pos = mid;
+    }
+
+    /** @return whether we have a next smallest number */
+  bool hasNext()
+  {
+    return pos.empty();
+  }
+
+    /** @return the next smallest number */
+  int next()
+  {
+    int result = curr_pos->val;
+    switch(sub_pos)
+      {
+      case left:
+	curr_pos = pos_stack.top();
+	sub_pos = mid;
+	break;
+	
+      case right:
+	
+	break;
+	
+      case mid:
+	curr_pos = curr_pos->right;
+	sub_pos = right;
+	break;
+      }
+    
+    return result;
+  }
+};

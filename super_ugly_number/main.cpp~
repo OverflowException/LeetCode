@@ -1,0 +1,16 @@
+#include "solution.h"
+
+using std::cout;
+using std::endl;
+
+int main()
+{
+  Solution s;
+  vector<int> primes{2, 7, 13, 19};
+  cout.setf(ios::boolalpha);
+  for(size_t index = 1; index < 40; ++index)
+    if(s.checkPrimeList(index, primes))
+      cout << index << " ";
+  cout << endl;
+  cout << s.nthSuperUglyNumber(7, primes) << endl;
+}

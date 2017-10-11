@@ -1,0 +1,26 @@
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+struct TreeNode
+{
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class Solution
+{
+ public:
+  void inOrderTraverse(TreeNode* node, int _target_order, int& _curr_matched_order)
+  {
+    if(node->left == NULL && node->right == NULL)
+      
+  }
+  
+  int kthSmallest(TreeNode* root, int k)
+  {
+  }
+};

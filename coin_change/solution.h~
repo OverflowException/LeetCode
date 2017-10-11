@@ -1,0 +1,47 @@
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using std::vector;
+using std::sort;
+using std::cout;
+using std::endl;
+
+//Try solving this problem with recursion
+class Solution
+{
+ public:
+  int recurseCoinChange(vector<int>& coins, vector<int>::const_iterator it, int target_amount)
+  {
+    if(target_amount <= 0 || it == coins.end())
+      return -1;
+    
+    int curr_amount = 0, coin_count = 0;
+    auto c_it = it;
+    while((curr_amount += *it) < amount)
+      ++coin_count;
+    curr_amount -= *it;
+    if(recurseCoinChange(coins, it + 1, ))
+  }
+  
+  int coinChange(vector<int>& coins, int amount)
+  {
+    sort(coins.begin(), coins.end(), [](int a, int b){return a > b;});
+    
+    int curr_amount = 0, coin_count = 0;
+    auto it = coins.cbegin();
+    while(curr_amount != amount)
+      {
+	curr_amount += *it;
+	++coin_count;
+	if(curr_amount > amount)
+	  {
+	    curr_amount -= *it++;
+	    --coin_count;
+	    if(it == coins.end())
+	      break;
+	  }
+      }
+    return curr_amount == amount ? coin_count : -1;
+  }
+};

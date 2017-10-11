@@ -1,0 +1,28 @@
+In file included from /usr/include/c++/6/vector:60:0,
+                 from solution.h:1,
+                 from main.cpp:1:
+/usr/include/c++/6/bits/stl_algobase.h: In instantiation of ‘static _OI std::__copy_move<false, false, std::random_access_iterator_tag>::__copy_m(_II, _II, _OI) [with _II = char**; _OI = int*]’:
+/usr/include/c++/6/bits/stl_algobase.h:386:44:   required from ‘_OI std::__copy_move_a(_II, _II, _OI) [with bool _IsMove = false; _II = char**; _OI = int*]’
+/usr/include/c++/6/bits/stl_algobase.h:422:45:   required from ‘_OI std::__copy_move_a2(_II, _II, _OI) [with bool _IsMove = false; _II = char**; _OI = int*]’
+/usr/include/c++/6/bits/stl_algobase.h:455:8:   required from ‘_OI std::copy(_II, _II, _OI) [with _II = char**; _OI = int*]’
+/usr/include/c++/6/bits/vector.tcc:284:29:   required from ‘void std::vector<_Tp, _Alloc>::_M_assign_aux(_ForwardIterator, _ForwardIterator, std::forward_iterator_tag) [with _ForwardIterator = char**; _Tp = int; _Alloc = std::allocator<int>]’
+/usr/include/c++/6/bits/stl_vector.h:1334:4:   required from ‘void std::vector<_Tp, _Alloc>::_M_assign_dispatch(_InputIterator, _InputIterator, std::__false_type) [with _InputIterator = char**; _Tp = int; _Alloc = std::allocator<int>]’
+/usr/include/c++/6/bits/stl_vector.h:509:11:   required from ‘void std::vector<_Tp, _Alloc>::assign(_InputIterator, _InputIterator) [with _InputIterator = char**; <template-parameter-2-2> = void; _Tp = int; _Alloc = std::allocator<int>]’
+main.cpp:6:26:   required from here
+/usr/include/c++/6/bits/stl_algobase.h:324:18: error: invalid conversion from ‘char*’ to ‘int’ [-fpermissive]
+        *__result = *__first;
+        ~~~~~~~~~~^~~~~~~~~~
+In file included from /usr/include/c++/6/vector:62:0,
+                 from solution.h:1,
+                 from main.cpp:1:
+/usr/include/c++/6/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_T1*, _Args&& ...) [with _T1 = int; _Args = {char*&}]’:
+/usr/include/c++/6/bits/stl_uninitialized.h:75:18:   required from ‘static _ForwardIterator std::__uninitialized_copy<_TrivialValueTypes>::__uninit_copy(_InputIterator, _InputIterator, _ForwardIterator) [with _InputIterator = char**; _ForwardIterator = int*; bool _TrivialValueTypes = false]’
+/usr/include/c++/6/bits/stl_uninitialized.h:126:15:   required from ‘_ForwardIterator std::uninitialized_copy(_InputIterator, _InputIterator, _ForwardIterator) [with _InputIterator = char**; _ForwardIterator = int*]’
+/usr/include/c++/6/bits/stl_uninitialized.h:281:37:   required from ‘_ForwardIterator std::__uninitialized_copy_a(_InputIterator, _InputIterator, _ForwardIterator, std::allocator<_Tp>&) [with _InputIterator = char**; _ForwardIterator = int*; _Tp = int]’
+/usr/include/c++/6/bits/vector.tcc:291:35:   required from ‘void std::vector<_Tp, _Alloc>::_M_assign_aux(_ForwardIterator, _ForwardIterator, std::forward_iterator_tag) [with _ForwardIterator = char**; _Tp = int; _Alloc = std::allocator<int>]’
+/usr/include/c++/6/bits/stl_vector.h:1334:4:   required from ‘void std::vector<_Tp, _Alloc>::_M_assign_dispatch(_InputIterator, _InputIterator, std::__false_type) [with _InputIterator = char**; _Tp = int; _Alloc = std::allocator<int>]’
+/usr/include/c++/6/bits/stl_vector.h:509:11:   required from ‘void std::vector<_Tp, _Alloc>::assign(_InputIterator, _InputIterator) [with _InputIterator = char**; <template-parameter-2-2> = void; _Tp = int; _Alloc = std::allocator<int>]’
+main.cpp:6:26:   required from here
+/usr/include/c++/6/bits/stl_construct.h:75:7: error: invalid conversion from ‘char*’ to ‘int’ [-fpermissive]
+     { ::new(static_cast<void*>(__p)) _T1(std::forward<_Args>(__args)...); }
+       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

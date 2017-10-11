@@ -1,0 +1,76 @@
+#include <stack>
+#include <vector>
+#include <string>
+#include <array>
+#include <iostream>
+
+using namespace std;
+
+class Solution
+{
+ public:
+  int longestValidParentheses(string s)
+  {
+    stack<string::difference_type> st;
+    vector<array<string::difference_type, 2>> v_pos;    
+    
+    string::const_iterator s_it;
+    const auto s_beg = s.cbegin();    
+    for(s_it = s_beg; s_it != s.end(); s_it++)
+      {
+	//'(' is found
+ 	if(*s_it == '(')
+	  st.push(s_it - s_beg);
+	//')' is found
+	else
+	  {
+	    if(!st.empty())
+	      {
+		v_pos.emplace_back();
+		(*(v_pos.end() - 1))[0] = st.top();
+		(*(v_pos.end() - 1))[1] = s_it - s_beg;
+		st.pop();
+	      }
+	  }
+      }
+
+    if(v_pos.empty())
+      return 0;
+    
+    vector<size_t> v_length(1);
+    *v_length.begin() = v_pos[0][1] - v_pos[0][0] + 1;
+    v_length.reserve(v_pos.size());
+    auto l_it = v_length.begin();
+    for(auto it = v_pos.cbegin() + 1; it != v_pos.end(); it++)
+      {
+	//adjacent parentheses
+	if((*(it - 1))[1] == (*it)[0] - 1)
+	  *l_it += (*it)[1] - (*it)[0] + 1;
+
+	//isolated parentheses
+	else
+	  {
+	    v_length.push_back((*it)[1] - (*it)[0] + 1);
+	    l_it++;
+	  }
+      }
+    
+    cout << "v_pos:" << endl;
+    for(const auto &ele : v_pos)
+      {
+	cout << ele[0] << " " << ele[1] << endl;
+      }
+
+    cout << "v_length:" << endl;
+    for(const auto &ele : v_length)
+      {
+	cout << ele << endl;
+      }
+
+    int result = *v_length.begin();
+    for(auto it = v_length.begin(); it != v_length.end(); it++)
+      result = *it > result ? *it : result;
+
+    return result;
+  }
+};

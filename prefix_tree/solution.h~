@@ -1,0 +1,16 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+
+class Trie
+{
+ public:
+  unordered_map<char, Trie*> next_map;
+  Trie(){};
+  void insert(string word);
+  bool search(string word);
+  bool startsWith(string prefix);
+};

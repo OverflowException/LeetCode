@@ -1,0 +1,5 @@
+main.cpp: In function ‘int main(int, char**)’:
+main.cpp:13:43: error: no matching function for call to ‘find(std::vector<std::__cxx11::basic_string<char> >::iterator, std::vector<std::__cxx11::basic_string<cnhar> >::iterator, const char [4])’
+   find(v_test.begin(), v_test.end(), "hit");
+                                           ^
+In file included from /usr/include/c++/6/bits

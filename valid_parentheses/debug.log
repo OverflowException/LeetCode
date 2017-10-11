@@ -1,0 +1,11 @@
+In file included from main.cpp:2:0:
+solution.h:37:1: error: expected ‘;’ after class definition
+ }
+ ^
+solution.h: In member function ‘bool Solution::isValid(std::__cxx11::string)’:
+solution.h:21:6: error: ‘std::__cxx11::string {aka class std::__cxx11::basic_string<char>}’ has no member named ‘push’
+    s.push(curr);
+      ^~~~
+solution.h:24:38: error: expected ‘)’ before ‘;’ token
+      ascii_span = abs(curr - st.top();
+                                      ^

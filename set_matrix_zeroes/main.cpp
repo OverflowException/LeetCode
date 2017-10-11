@@ -1,0 +1,49 @@
+#include "solution.h"
+#include <fstream>
+#include <sstream>
+
+int main(int argc, char** argv)
+{
+  if(argc != 2)
+    throw runtime_error("Invalid parameters!");
+
+  string text;
+  int number;
+  fstream f_in;
+  stringstream s_in;
+  f_in.open(argv[1], ios::in);
+  if(!f_in)
+    throw runtime_error("Invalid file name!");
+
+  vector<vector<int>> matrix;
+  while(getline(f_in, text))
+    {
+      matrix.emplace_back();
+      s_in.str(text);
+      while(s_in >> number)
+	matrix.back().emplace_back(number);
+
+      s_in.clear();
+    }
+
+  f_in.close();
+  Solution s;
+  
+  matrix = {{3},{2},{0},{3},{6},{7},{2}};
+  
+  for(auto const & ele_1 : matrix)
+    {
+      for(auto const & ele_2 : ele_1)
+	cout << ele_2 << " ";
+      cout << endl;
+    }
+  cout << endl;
+  s.setZeroes(matrix);
+  
+  for(auto const & ele_1 : matrix)
+    {
+      for(auto const & ele_2 : ele_1)
+	cout << ele_2 << " ";
+      cout << endl;
+    }
+}

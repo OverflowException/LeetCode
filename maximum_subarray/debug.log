@@ -1,0 +1,23 @@
+solution.cpp:75:38: error: 'Solution::loadPPole' declared as an 'inline' variable
+ inline int Solution::loadPPole(const vector<int>>& v, auto it, int &current_max_fall)
+                                      ^
+solution.cpp:75:38: error: 'int Solution::loadPPole' is not a static member of 'class Solution'
+solution.cpp:75:32: error: expected primary-expression before 'const'
+ inline int Solution::loadPPole(const vector<int>>& v, auto it, int &current_max_fall)
+                                ^
+solution.cpp:75:55: error: expected primary-expression before 'auto'
+ inline int Solution::loadPPole(const vector<int>>& v, auto it, int &current_max_fall)
+                                                       ^
+solution.cpp:75:64: error: expected primary-expression before 'int'
+ inline int Solution::loadPPole(const vector<int>>& v, auto it, int &current_max_fall)
+                                                                ^
+solution.cpp:75:85: error: expression list treated as compound expression in initializer [-fpermissive]
+ inline int Solution::loadPPole(const vector<int>>& v, auto it, int &current_max_fall)
+                                                                                     ^
+solution.cpp:76:1: error: expected ',' or ';' before '{' token
+ {
+ ^
+In file included from solution.cpp:1:0:
+solution.h:15:22: warning: inline function 'static void Solution::loadPPole(const std::vector<int>&, auto:1, int&) [with auto:1 = __gnu_cxx::__normal_iterator<int*, std::vector<int> >]' used but never defined
+   static inline void loadPPole(const vector<int>& v, auto it, int &current_max_fall);
+                      ^

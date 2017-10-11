@@ -1,0 +1,87 @@
+#include "twitter.h"
+
+Twitter::Twitter()
+{
+  _users.resize(16, NULL);
+}
+
+void Twitter::postTweet(int userId, int tweetId)
+{
+  constructNewUser(userId);
+  
+  _users[userId]->tweet_list.push_front(tweetId);
+}
+
+vector<int> Twitter::getNewsFeed(int userId)
+{
+  constructNewUser(userId);
+  
+  vector<int> result;
+  const decltype(User::follow)& curr_user_follow = _users[userId]->follow;
+  for(const auto& id: curr_user_follow)
+    for(const auto& tweet: _users[id]->tweet_list)
+      {
+	result.push_back(tweet);
+      }
+  sort(result.begin(), result.end(), [](auto a, auto b)
+       {
+	 return a > b;
+       });
+
+  ostream_iterator<decltype(result)::value_type> out_it(cout, " ");
+  copy(result.begin(), result.end(), out_it);
+  return result;
+}
+
+void Twitter::follow(int followerId, int followeeId)
+{
+  constructNewUser(followerId);
+  constructNewUser(followeeId);
+  
+  _users[followerId]->follow.push_front(followeeId);
+}
+
+void Twitter::unfollow(int followerId, int followeeId)
+{
+  _users[followerId]->follow.pop_front();
+}
+
+void Twitter::constructNewUser(int id)
+{
+  if(id >= _users.size())
+    _users.resize(id + 1, NULL);
+
+  if(_users[id] == NULL)
+    {
+      _users[id] = new User(id);
+      _users[id]->follow.push_front(id);
+    }
+
+  for(const auto u : _users)
+    if(u == NULL)
+      cout << "-" << " ";
+    else
+      cout << u->user_id << " ";
+  cout << endl;
+}
+
+
+void Twitter::listAllTwitter(int userId)
+{
+  decltype(User::tweet_list)& curr_user_twitter = _users[userId]->tweet_list;
+
+  ostream_iterator<int> out_it(cout, " ");
+  cout << "User " << userId << " tweets ";
+  copy(curr_user_twitter.begin(), curr_user_twitter.end(), out_it);
+  cout << endl;
+}
+
+void Twitter::listAllFollow(int userId)
+{
+  decltype(User::follow)& curr_user_follow = _users[userId]->follow;
+
+  ostream_iterator<int> out_it(cout, " ");
+  cout << "User " << userId << " follows ";
+  copy(curr_user_follow.begin(), curr_user_follow.end(), out_it);
+  cout << endl;
+}

@@ -1,0 +1,92 @@
+#include <string>
+#include <list>
+#include <cstdlib>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+class Solution
+{
+ private:
+  list<char> list_preorder;
+  void DisplayList()
+  {
+    for(const auto& ele : list_preorder)
+      cout << ele << " ";
+    cout << endl;
+  }
+    
+ public:
+  void recursivePrune(list<char>::iterator it)
+  {
+    if(++it == list_preorder.end())
+      return;
+
+    list<char>::iterator it_curr;
+    while(it != --list_preorder.end())
+      {	
+	//Found a '#'
+	if(*it == '#')
+	  {
+	    it_curr = it;
+	    if(*--it == '0')
+	      if(*++it_curr == '#')
+		it = list_preorder.
+		  insert(list_preorder.erase(it, ++it_curr), '#');
+	      else
+		{
+		  ++it;
+		  recursivePrune(it_curr);
+		  if(*++it == '0')
+		    return;
+		  else
+		    --it;
+		}
+	    else
+	      return;
+	  }
+	else
+	  ++it;
+      }
+  }
+
+  bool isValidSerialization(string preorder)
+  {
+    if(preorder == "#")
+      return true;
+    
+    for(auto &ele : preorder)
+      if(ele == ',')
+	ele = ' ';
+
+    istringstream ss(preorder);
+    string _temp;
+    while(ss >> _temp)
+      if(isdigit(_temp[0]))
+	list_preorder.push_back('0');
+      else
+	list_preorder.push_back('#');
+    
+    cout << "Generated list:" << endl;
+    DisplayList();
+    
+    size_t length = list_preorder.size();
+    if(length < 3)
+      return false;
+    
+    if(*list_preorder.begin() == '#')
+      return false;        
+
+    if(list_preorder.size() % 2 != 1)
+      return false;
+
+    recursivePrune(list_preorder.begin());
+    cout << "After prune:"  << endl;
+    DisplayList();    
+    if(list_preorder.size() == 1 && *list_preorder.begin() == '#')
+      return true;
+    else
+      return false;
+  }
+};

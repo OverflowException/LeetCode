@@ -1,0 +1,101 @@
+#include "solution.h"
+
+///////////////////////
+//Node
+//
+string Node::name()
+{
+  return _name;
+}
+
+//////////////////////
+//Dir
+//
+
+void Dir::addSub(const string& name, bool isDir)
+{
+  auto _it = _subs.emplace(_subs.end(), static_cast<Node*>(NULL));
+  if(isDir)
+    *_it = new Dir(name);
+  else
+    *_it = new File(name);
+}
+
+const vector<Node*> Dir::subs()
+{
+  return _subs;
+}
+
+///////////////////////
+//File
+//
+void File::appendContent(const string& content)
+{
+  _content.push_back(content);
+}
+
+//////////////////////
+//FileSystem
+//
+
+Dir* FileSystem::cd(string& path)
+{
+  replace_if(path.begin(), path.end(),
+	     [](char c)
+	     {
+	       return c == '/';
+	       }, ' ');
+
+  path_parser.str(path);
+
+  string partial_path;
+  const Dir* path_iterator = &root;
+
+  while(path_parser >> partial_path)
+    {
+      
+    }
+}
+
+vector<string> FileSystem::ls(string path)
+{
+  /*replace_if(path.begin(), path.end(),
+	     [](char c)
+	     {
+	       return c == '/';
+	     }, ' ');
+
+  path_parser.str(path);
+
+  string partial_path;
+  path_iterator = &root;
+  vector<Node*> curr_subs;
+  decltype(curr_subs)::iterator sub_it;
+  while(path_parser >> partial_path)
+    {
+      curr_subs = path_iterator->subs();
+      for(sub_it = curr_subs.begin(); sub_it != curr_subs.end(); ++sub_it)
+	{
+	  if((*sub_it)->name() == partial_path)
+	    {
+	      path_iterator = static_cast<Dir*>(*sub_it);
+	      break;
+	    }
+	}
+    }
+
+  vector<string> result(curr_subs.size());
+  decltype(result)::iterator result_it;
+  for(sub_it = curr_subs.begin(), result_it = result.begin();
+      sub_it != curr_subs.end(); ++sub_it, ++result_it)
+      *result_it = (*sub_it)->name();*/
+
+  vector<string> result;
+  return result;
+}
+
+void FileSystem::mkdir(string path)
+{
+  const Dir* path_iterator;
+  
+}

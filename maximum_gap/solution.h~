@@ -1,0 +1,47 @@
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution
+{
+ public:
+  
+  int maximumGap(vector<int>& nums)
+  {
+    if(nums.size() < 2)
+      return 0;
+    
+    int num_min = 0x7fffffff;
+    int num_max = num_min + 1;
+        
+    for(const int ele : nums)
+      if(ele > num_max)
+	num_max = ele;
+      else if(ele < num_min)
+	num_min = ele;
+
+
+    //Set markers
+    vector<bool> markers(num_max - num_min + 1, false);        
+    for(const auto ele : nums)
+      markers[ele - num_min] = true;
+            
+    vector<bool>::iterator prev_marker_it = markers.begin();
+
+    vector<size_t> diff(nums.size() - 1, 0);
+    auto curr_diff_it = diff.begin();
+  
+    for(auto curr_marker_it = prev_marker_it + 1; curr_marker_it != markers.end(); ++curr_marker_it)
+      {
+	if(*curr_marker_it)
+	  {
+	    *curr_diff_it = curr_marker_it - prev_marker_it;
+	    ++curr_diff_it;
+	    prev_marker_it = curr_marker_it;
+	  }
+      }
+
+    return *max_element(diff.begin(), diff.end());
+  }
+};

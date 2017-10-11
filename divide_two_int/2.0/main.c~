@@ -1,0 +1,85 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#define MIN_INT (1 << (sizeof(int) * 8 - 1))
+#define MAX_INT (MIN_INT - 1)
+
+int divide(int divident, int divisor);
+
+int main(int argc, char** argv)
+{
+  if(argc != 3)
+    {
+      printf("divide divident divisor");
+      return 0;
+    }
+  int divident = atoi(argv[1]);
+  int divisor = atoi(argv[2]);
+  printf("divident = 0x%X\n", divident);
+  printf("divisor = 0x%X\n", divisor);
+  printf("final result = %d\n", divide(divident, divisor));
+}
+
+int divide(int divident, int divisor)
+{
+  if(divisor == 0)
+    return MAX_INT;
+  //Deal with negative integer
+  int dividentSig = divident & 0x80000000;
+  int divisorSig = divisor & 0x80000000;
+  divident = dividentSig ? -divident : divident;
+  divisor = divisorSig ? -divisor : divisor;
+  printf("%d, %d\n", divident, divisor);
+  /////////////////////////
+
+  int dividentMSB;
+  int divisorMSB;
+
+  int MSBfilter = 0x40000000;
+
+  //Fail when divisor = 0
+  //Get dividentMSB
+  for(MSBfilter = 0x40000000, dividentMSB = 31; ; MSBfilter >>= 1)
+    {
+      if(!(MSBfilter & divident))
+	dividentMSB--;
+
+      else
+	break;
+    }
+  printf("dividentMSB = %d\n", dividentMSB);
+
+  //Get divisorMSB
+  for(MSBfilter = 0x40000000, divisorMSB = 31; ; MSBfilter >>= 1)
+    {
+      if(!(MSBfilter & divisor))
+	divisorMSB--;
+
+      else
+	break;
+    }
+  printf("divisorMSB = %d\n", divisorMSB);
+
+  int MSBdiff = dividentMSB - divisorMSB;
+  int divisorPower = divisor << MSBdiff; //The result of divisor bit-shift
+  int binaryPower = 1 << MSBdiff;      //The result of binary bit-shift
+  long long int divisorAccu = 0;
+  int result = 0;
+
+  for(; MSBdiff >= 0; MSBdiff--)
+    {
+      if((divisorAccu += divisorPower) <= divident)
+	result += binaryPower;
+      else
+	divisorAccu -= divisorPower;
+
+      printf("binaryPower = %d, divisorAccu = %ld, result = %d\n", binaryPower, divisorAccu, result);
+      divisorPower >>= 1;
+      binaryPower >>= 1;
+      if(divisorAccu == divident)
+	break;
+    }
+
+  return result;
+}

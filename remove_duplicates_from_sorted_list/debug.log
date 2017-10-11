@@ -1,0 +1,10 @@
+main.cpp: In function ‘int main(int, char**)’:
+main.cpp:20:12: error: expected unqualified-id before ‘(’ token
+       ptr->(ListNode*)malloc(sizeof(ListNode));
+            ^
+main.cpp:20:21: error: expected primary-expression before ‘*’ token
+       ptr->(ListNode*)malloc(sizeof(ListNode));
+                     ^
+main.cpp:20:22: error: expected primary-expression before ‘)’ token
+       ptr->(ListNode*)malloc(sizeof(ListNode));
+                      ^
